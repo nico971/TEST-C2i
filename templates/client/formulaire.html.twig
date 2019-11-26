@@ -1,3 +1,46 @@
 {% block body %}
+<section class="ui container">
+
+    <form class="ui form" action="message" method="get">
+
+        <div class="field">
+            <label>Name:</label>
+            <input type="text" name="name">
+        </div>
+
+        <div class="field">
+            <label>Message</label>
+            <input type="text" name="message">
+        </div>
+
+        <button class="ui button" type="submit">Send</button>
+
+    </form>
+
+</section>
+
+
+
+{#
     
+    MESSAGE FLASH
+
+    #}
+
+
+    <div class="alert alert-success row col-lg-6" id="success-alert">
+		<button type="button" class="close" data-dismiss="alert">x</button>
+		<strong>Success! </strong>
+		Vos données ont bien été pris en compte
+	</div>
+	<div class="alert alert-danger row col-lg-6" id="error-alert" style="display: none;">
+		<button type="button" class="close" data-dismiss="alert">x</button>
+		<strong>Error! </strong>
+		Une erreur s'est produite lors de l'opération
+	</div>
+	<div class="alert alert-warning row col-lg-6" id="date-alert" style="display: none;">
+		<button type="button" class="close" data-dismiss="alert">x</button>
+		<strong>Error! </strong>
+		Veuillez renseigner une date s'il vous plait!!!
+	</div>
 {% endblock %}

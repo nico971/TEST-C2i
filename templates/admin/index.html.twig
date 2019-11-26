@@ -2,19 +2,175 @@
 
 {% block title %}Hello AdminController!{% endblock %}
 
+{% block stylesheets %}
+	<link href="{{ asset('css/Tab_button.css') }}" rel="stylesheet" type="text/css" />
+	
+{% endblock %}
+
+{% block custom_style %}
+
+	<style>
+		.table > tbody > tr > td{
+			border: 1px solid #a8a6a4;
+			white-space: nowrap;
+		}
+		h6,h5,h5,#titre {
+			margin-bottom: 2px;
+			margin-top: 2px
+		}
+		h1,p {
+			display: inline-block;
+		}
+		.table > tbody >tr:hover {
+			background-color: #fff1c2;
+		}
+		.hidden{
+            display :none
+        }
+
+	</style>
+{% endblock %}
+
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="row">
+  <div class="col-lg-6 tab" style="padding : 20px">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/test_C2i/c2i_repository/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/test_C2i/c2i_repository/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
+    <button class="tablinks" onclick="openCity(event,'PROSPECT')" id="defaultOpen"><strong>Fiche prospect</strong></button>
+    <button class="tablinks" onclick="openCity(event,'CAR')"><strong>Voiture</strong></button>
+    <button class="tablinks" onclick="openCity(event,'COLOR')"><strong>Couleur</strong></button>
+    
+  </div>
 </div>
+
+<div class="row">
+	<div class="col-lg-12 tabcontent "id="PROSPECT">
+
+		<div class="box box-success box-line0 " >
+			<div class="box-header">
+				<div class="box-body table-responsive no-padding ">
+					<table class="table table-striped table-bordered nowrap" style="border: 1px" id="table_BAILLIF">
+						<thead>
+              <tr>
+                <th scope="col">NOM1</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Date de Naissance</th>
+                <th scope="col">Permis?</th>
+                <th scope="col">Voiture</th>
+                <th scope="col">Couleur</th>
+              </tr>
+            </thead>
+
+						<tbody>
+          
+          
+              {% for fiche in fiches %}
+              
+              <tr class="table-light"> 
+                  <td>{{fiche.fistname}}</td>   
+                  <td>{{fiche.lastname}}</td> 
+                  <td>{{fiche.dateofbirth | date("d/m/Y") }}</td>
+                  <td><input type="checkbox" name="check_permis" id="check_permis_{{fiche.fistname}}_{{fiche.lastname}}" value="{{fiche.hasdriverlicence}}"{% if fiche.hasdriverlicence %}checked="checked"{% endif %}></td>
+                  <td>Voiture</td>
+                  <td>Color</td>
+              </tr> 
+              {% endfor %}
+      
+                  
+                
+              </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <div class="col-lg-12 tabcontent "id="CAR">
+
+		<div class="box box-success box-line0 " >
+			<div class="box-header">
+				<div class="box-body table-responsive no-padding ">
+					<table class="table table-striped table-bordered nowrap" style="border: 1px" id="table_CAR">
+						<thead>
+              <tr>
+                <th scope="col">NOM2</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Date de Naissance</th>
+                <th scope="col">Permis?</th>
+                <th scope="col">Voiture</th>
+                <th scope="col">Couleur</th>
+              </tr>
+            </thead>
+
+						<tbody>
+          
+          
+              {% for fiche in fiches %}
+              
+              <tr class="table-light"> 
+                  <td>{{fiche.fistname}}</td>   
+                  <td>{{fiche.lastname}}</td> 
+                  <td>{{fiche.dateofbirth | date("d/m/Y") }}</td>
+                  <td><input type="checkbox" name="check_permis" id="check_permis_{{fiche.fistname}}_{{fiche.lastname}}" value="{{fiche.hasdriverlicence}}"{% if fiche.hasdriverlicence %}checked="checked"{% endif %}></td>
+                  <td>Voiture</td>
+                  <td>Color</td>
+              </tr> 
+              {% endfor %}
+      
+                  
+                
+              </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <div class="col-lg-12 tabcontent "id="COLOR">
+
+		<div class="box box-success box-line0 " >
+			<div class="box-header">
+				<div class="box-body table-responsive no-padding ">
+					<table class="table table-striped table-bordered nowrap" style="border: 1px" id="table_COLOR">
+						<thead>
+              <tr>
+                <th scope="col">NOM</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Date de Naissance</th>
+                <th scope="col">Permis?</th>
+                <th scope="col">Voiture</th>
+                <th scope="col">Couleur</th>
+              </tr>
+            </thead>
+
+						<tbody>
+          
+          
+              {% for fiche in fiches %}
+              
+              <tr class="table-light"> 
+                  <td>{{fiche.fistname}}</td>   
+                  <td>{{fiche.lastname}}</td> 
+                  <td>{{fiche.dateofbirth | date("d/m/Y") }}</td>
+                  <td><input type="checkbox" name="check_permis" id="check_permis_{{fiche.fistname}}_{{fiche.lastname}}" value="{{fiche.hasdriverlicence}}"{% if fiche.hasdriverlicence %}checked="checked"{% endif %}></td>
+                  <td>Voiture</td>
+                  <td>Color</td>
+              </tr> 
+              {% endfor %}
+      
+                  
+                
+              </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+        
+<script type="text/javascript" src="{{ asset('js/administration.js') }}"></script>      
+               
 {% endblock %}
