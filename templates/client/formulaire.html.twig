@@ -1,25 +1,55 @@
+{% extends 'base.html.twig' %}
+
 {% block body %}
-<section class="ui container">
+<h1>Login</h1>
 
-    <form class="ui form" action="message" method="get">
 
-        <div class="field">
-            <label>Name:</label>
-            <input type="text" name="name">
+{{ form_start(formUser) }}
+
+        <div class="form-group">
+
+            <label  class="col-lg-2" for="">NOM</label>
+            {{ form_widget(formUser.firstname) }}
+
         </div>
 
-        <div class="field">
-            <label>Message</label>
-            <input type="text" name="message">
+        <div class="form-group">
+
+            <label class="col-lg-2" for="">Prénom</label>
+            {{ form_widget(formUser.lastname) }}
+
         </div>
 
-        <button class="ui button" type="submit">Send</button>
+        <div class="form-group">
 
-    </form>
+            <label class="col-lg-2"for="">Date de naissance</label>
+            {{ form_widget(formUser.dateofbirth) }}
 
-</section>
+        </div>
 
 
+        <div class="form-group">
+
+            <label class="col-lg-2" for="">Permis</label>
+            {{ form_widget(formUser.hasdriverlicence) }}
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-lg-2" id="label_carid" for="">Voiture</label>
+            {{ form_widget(formUser.carid) }}
+
+        </div>
+
+        <div class="form-group">
+
+            <label  class="col-lg-2"id="label_colorid" for="">Couleur</label>
+            {{ form_widget(formUser.colorid) }}
+
+        </div>
+
+{{ form_end(formUser) }}
 
 {#
     
@@ -43,4 +73,12 @@
 		<strong>Error! </strong>
 		Veuillez renseigner une date s'il vous plait!!!
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+<script type="text/javascript" src="{{ asset('js/registration.js') }}"></script>      
+               
 {% endblock %}

@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,7 +19,7 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $fistname;
+    private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,34 +37,28 @@ class User
     private $hasdriverlicence;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\car", inversedBy="userid")
      */
-    private $carId;
+    private $carid;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Color", mappedBy="user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\color", inversedBy="userid")
      */
-    private $colorId;
-
-    public function __construct()
-    {
-        $this->carId = new ArrayCollection();
-        $this->colorId = new ArrayCollection();
-    }
+    private $colorid;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFistname(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->fistname;
+        return $this->firstname;
     }
 
-    public function setFistname(string $fistname): self
+    public function setFirstname(string $firstname): self
     {
-        $this->fistname = $fistname;
+        $this->firstname = $firstname;
 
         return $this;
     }
@@ -107,64 +99,26 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection|car[]
-     */
-    public function getCarId(): Collection
+    public function getCarid(): ?car
     {
-        return $this->carId;
+        return $this->carid;
     }
 
-    public function addCarId(car $carId): self
+    public function setCarid(?car $carid): self
     {
-        if (!$this->carId->contains($carId)) {
-            $this->carId[] = $carId;
-            $carId->setUser($this);
-        }
+        $this->carid = $carid;
 
         return $this;
     }
 
-    public function removeCarId(car $carId): self
+    public function getColorid(): ?color
     {
-        if ($this->carId->contains($carId)) {
-            $this->carId->removeElement($carId);
-            // set the owning side to null (unless already changed)
-            if ($carId->getUser() === $this) {
-                $carId->setUser(null);
-            }
-        }
-
-        return $this;
+        return $this->colorid;
     }
 
-    /**
-     * @return Collection|color[]
-     */
-    public function getColorId(): Collection
+    public function setColorid(?color $colorid): self
     {
-        return $this->colorId;
-    }
-
-    public function addColorId(color $colorId): self
-    {
-        if (!$this->colorId->contains($colorId)) {
-            $this->colorId[] = $colorId;
-            $colorId->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeColorId(color $colorId): self
-    {
-        if ($this->colorId->contains($colorId)) {
-            $this->colorId->removeElement($colorId);
-            // set the owning side to null (unless already changed)
-            if ($colorId->getUser() === $this) {
-                $colorId->setUser(null);
-            }
-        }
+        $this->colorid = $colorid;
 
         return $this;
     }

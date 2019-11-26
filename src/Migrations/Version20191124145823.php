@@ -32,8 +32,8 @@ final class Version20191124145823 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE car');
-        $this->addSql('DROP TABLE color');
-        $this->addSql('DROP TABLE user');
+        $this->addSql('DROP TABLE car CASCADE CONSTRAINTS');
+        $this->addSql('DROP TABLE color CASCADE CONSTRAINTS');
+        $this->addSql('DROP TABLE user CASCADE CONSTRAINTS');
     }
 }
