@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,11 +24,21 @@ class Car
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="carId")
+     * @ORM\ManyToMany(targetEntity="App\Entity\color", inversedBy="carid")
      */
-    private $user;
+    private $carhascolor;
 
-    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="carid")
+     */
+    private $userid;
+
+    public function __construct()
+    {
+        $this->carhascolor = new ArrayCollection();
+        $this->userid = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,17 +56,60 @@ class Car
         return $this;
     }
 
-    public function getUser(): ?User
+    /**
+     * @return Collection|color[]
+     */
+    public function getCarhascolor(): Collection
     {
-        return $this->user;
+        return $this->carhascolor;
     }
 
-    public function setUser(?User $user): self
+    public function addCarhascolor(color $carhascolor): self
     {
-        $this->user = $user;
+        if (!$this->carhascolor->contains($carhascolor)) {
+            $this->carhascolor[] = $carhascolor;
+        }
 
         return $this;
     }
 
-   
+    public function removeCarhascolor(color $carhascolor): self
+    {
+        if ($this->carhascolor->contains($carhascolor)) {
+            $this->carhascolor->removeElement($carhascolor);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUserid(): Collection
+    {
+        return $this->userid;
+    }
+
+    public function addUserid(User $userid): self
+    {
+        if (!$this->userid->contains($userid)) {
+            $this->userid[] = $userid;
+            $userid->setCarid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserid(User $userid): self
+    {
+        if ($this->userid->contains($userid)) {
+            $this->userid->removeElement($userid);
+            // set the owning side to null (unless already changed)
+            if ($userid->getCarid() === $this) {
+                $userid->setCarid(null);
+            }
+        }
+
+        return $this;
+    }
 }
